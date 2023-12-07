@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import Component from ".";
+import type { Meta } from "@storybook/react";
+import SearchInput from ".";
 
-const meta: Meta<typeof Component> = {
+const meta: Meta<typeof SearchInput> = {
   title: "Component/SearchInput",
-  component: Component,
+  component: SearchInput,
   parameters: {
     layout: "centered",
   },
@@ -11,6 +11,11 @@ const meta: Meta<typeof Component> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Component>;
 
-export const Default: Story = {};
+const Template = () => (
+  <div className="w-80">
+    <SearchInput />
+  </div>
+);
+
+export const Default = Template.bind({});
