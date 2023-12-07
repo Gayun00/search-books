@@ -1,5 +1,8 @@
 "use client";
+
 import React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
@@ -14,14 +17,25 @@ import { UseFormReturn } from "react-hook-form";
 
 interface Props {
   onSubmit: (text: string) => void;
-  form: UseFormReturn<any>;
-  FormSchema: z.ZodType;
 }
 
-function SearchInput({ onSubmit, form, FormSchema }: Props) {
+const FormSchema = z.object({
+  keyword: z.string().min(1, {
+    message: "한 글자 이상 입력하세요",
+  }),
+});
+
+function SearchInput({ onSubmit }: Props) {
   const onSubmitInput = (data: z.infer<typeof FormSchema>) => {
     onSubmit(data.keyword);
   };
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      keyword: "",
+    },
+  });
 
   return (
     <Form {...form}>
