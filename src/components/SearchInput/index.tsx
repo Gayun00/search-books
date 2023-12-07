@@ -12,6 +12,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { BookData } from "@/types";
 
 const FormSchema = z.object({
   keyword: z.string().min(1, {
@@ -29,6 +30,26 @@ export const validateKeywords = (text: string) => {
   if (!text.length) return false;
   const keywordsCount = splitKeywords(text).length;
   return keywordsCount > 0 && keywordsCount <= 2;
+};
+
+export const handleSearchResult = (
+  text: string,
+  searchBooks: (keyword: string) => BookData[]
+) => {
+  const hasOrOperator = text.includes("|");
+  const hasNotOperator = text.includes("-");
+
+  if (hasOrOperator) {
+    const [keyword1, keyword2] = splitKeywords(text);
+    return [...searchBooks(keyword1), ...searchBooks(keyword2)];
+  }
+
+  if (hasNotOperator) {
+    const [keyword1, keyword2] = splitKeywords(text);
+    return searchBooks(keyword1).filter(
+      (result) => !result.title.includes(keyword2)
+    );
+  }
 };
 
 function SearchInput() {

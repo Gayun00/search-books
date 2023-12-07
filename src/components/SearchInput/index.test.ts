@@ -1,10 +1,10 @@
-import { splitKeywords, validateKeywords } from ".";
+import { handleSearchResult, splitKeywords, validateKeywords } from ".";
 
 describe("SearchInput 테스트", () => {
   const textWithOrOp = "keyword1|keyword2";
   const textWithNotOp = "keyword1-keyword2";
 
-  it("입력한 키워드는 |혹은 -로 구분된다", () => {
+  it("입력한 키워드는 |(and) 혹은 -(not)로 구분된다", () => {
     const keywordsWithOrOp = splitKeywords(textWithOrOp);
     const keywordsWithNotOp = splitKeywords(textWithNotOp);
 
@@ -24,5 +24,36 @@ describe("SearchInput 테스트", () => {
     expect(isValidKeywords3).toBe(true);
     expect(isValidKeywords4).toBe(false);
     expect(isValidKeywords5).toBe(false);
+  });
+
+  it("| (and) 연산자로 검색할 때, 두개의 키워드 검색결과를 합쳐 보여준다", () => {
+    const searchBooks = jest.fn().mockImplementation((keyword) => {
+      return [
+        { title: `Book for ${keyword} 1`, author: `Author for ${keyword} 1` },
+        { title: `Book for ${keyword} 2`, author: `Author for ${keyword} 2` },
+      ];
+    });
+
+    expect(handleSearchResult(textWithOrOp, searchBooks)).toEqual([
+      { author: "Author for keyword1 1", title: "Book for keyword1 1" },
+      { author: "Author for keyword1 2", title: "Book for keyword1 2" },
+      { author: "Author for keyword2 1", title: "Book for keyword2 1" },
+      { author: "Author for keyword2 2", title: "Book for keyword2 2" },
+    ]);
+  });
+
+  it("- (not) 연산자로 검색할 때, 첫번째 키워드 검색 결과 중 두 번째 키워드를 제목에 포함하는 값을 제외해 보여준다", () => {
+    const searchBooks = jest.fn().mockImplementation((keyword) => {
+      return [
+        { title: `Book for ${keyword} 1`, author: `Author for ${keyword} 1` },
+        { title: `Book for ${keyword} 2`, author: `Author for ${keyword} 2` },
+      ];
+    });
+
+    const text = "keyword1-2";
+
+    expect(handleSearchResult(text, searchBooks)).toEqual([
+      { author: "Author for keyword1 1", title: "Book for keyword1 1" },
+    ]);
   });
 });
