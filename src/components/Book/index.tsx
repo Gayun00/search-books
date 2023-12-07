@@ -4,18 +4,13 @@ import {
   CardContent,
   CardDescription,
   CardFooter,
-  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
+import { BookProps } from "@/types";
 
-interface Props {
-  title: string;
-  subtitle: string;
-  url: string;
-  image: string;
-}
+interface Props extends BookProps {}
 
 function Book({ title, subtitle, url, image }: Props) {
   return (
