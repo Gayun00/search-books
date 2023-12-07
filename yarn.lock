@@ -2764,7 +2764,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-slot@npm:1.0.2":
+"@radix-ui/react-slot@npm:1.0.2, @radix-ui/react-slot@npm:^1.0.2":
   version: 1.0.2
   resolution: "@radix-ui/react-slot@npm:1.0.2"
   dependencies:
@@ -14859,6 +14859,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "trevari@workspace:."
   dependencies:
+    "@radix-ui/react-slot": ^1.0.2
     "@storybook/addon-essentials": ^7.6.3
     "@storybook/addon-interactions": ^7.6.3
     "@storybook/addon-links": ^7.6.3
