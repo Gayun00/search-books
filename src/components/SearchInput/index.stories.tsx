@@ -1,5 +1,6 @@
 import type { Meta } from "@storybook/react";
 import SearchInput from ".";
+import useSearchBooks from "./useSearchBooks";
 
 const meta: Meta<typeof SearchInput> = {
   title: "Component/SearchInput",
@@ -12,10 +13,14 @@ const meta: Meta<typeof SearchInput> = {
 
 export default meta;
 
-const Template = () => (
-  <div className="w-80">
-    <SearchInput />
-  </div>
-);
+const Template = () => {
+  const { form, FormSchema } = useSearchBooks();
+
+  return (
+    <div className="w-80">
+      <SearchInput onSubmit={() => {}} form={form} FormSchema={FormSchema} />
+    </div>
+  );
+};
 
 export const Default = Template.bind({});

@@ -1,4 +1,5 @@
 import { handleSearchResult, splitKeywords, validateKeywords } from ".";
+
 const textWithOrOp = "keyword1|keyword2";
 const textWithNotOp = "keyword1-keyword2";
 
@@ -63,7 +64,3 @@ describe("handleSearchResult 테스트", () => {
     ]);
   });
 });
-
-// describe("SearchInput 테스트", () => {
-//   it("");
-// });
