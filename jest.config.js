@@ -16,6 +16,7 @@ module.exports = {
     "^.+\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp|svg)$/i": `<rootDir>/src/__mocks__/fileMock.js`,
     "^@/components/(.*)$": "<rootDir>/src/components/$1",
     "^@/utils/(.*)$": "<rootDir>/src/utils/$1",
+    "^@/lib/(.*)$": "<rootDir>/src/lib/$1",
   },
   setupFilesAfterEnv: ["<rootDir>/src/utils/testUtils/setup.ts"],
   testPathIgnorePatterns: [
