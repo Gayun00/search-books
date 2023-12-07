@@ -1,9 +1,8 @@
 import { handleSearchResult, splitKeywords, validateKeywords } from ".";
+const textWithOrOp = "keyword1|keyword2";
+const textWithNotOp = "keyword1-keyword2";
 
-describe("SearchInput 테스트", () => {
-  const textWithOrOp = "keyword1|keyword2";
-  const textWithNotOp = "keyword1-keyword2";
-
+describe("splitKeywords 테스트", () => {
   it("입력한 키워드는 |(and) 혹은 -(not)로 구분된다", () => {
     const keywordsWithOrOp = splitKeywords(textWithOrOp);
     const keywordsWithNotOp = splitKeywords(textWithNotOp);
@@ -11,7 +10,9 @@ describe("SearchInput 테스트", () => {
     expect(keywordsWithOrOp).toEqual(["keyword1", "keyword2"]);
     expect(keywordsWithNotOp).toEqual(["keyword1", "keyword2"]);
   });
+});
 
+describe("validsteKeywords 테스트", () => {
   it("입력 가능한 최소 키워드 갯수는 1개, 최대 키워드 갯수는 2개이다", () => {
     const isValidKeywords1 = validateKeywords(textWithOrOp);
     const isValidKeywords2 = validateKeywords(textWithNotOp);
@@ -25,7 +26,9 @@ describe("SearchInput 테스트", () => {
     expect(isValidKeywords4).toBe(false);
     expect(isValidKeywords5).toBe(false);
   });
+});
 
+describe("handleSearchResult 테스트", () => {
   it("| (and) 연산자로 검색할 때, 두 개의 키워드 검색 결과를 합쳐 보여준다", async () => {
     const searchBooks = jest.fn().mockImplementation(({ keyword }) => {
       return Promise.resolve([
@@ -60,3 +63,7 @@ describe("SearchInput 테스트", () => {
     ]);
   });
 });
+
+// describe("SearchInput 테스트", () => {
+//   it("");
+// });
