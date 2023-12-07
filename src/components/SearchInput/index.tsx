@@ -19,6 +19,18 @@ const FormSchema = z.object({
   }),
 });
 
+export const splitKeywords = (text: string) => {
+  const resultArray = text.split(/[|-]/);
+  const filteredArray = resultArray.filter((item) => item !== "");
+  return filteredArray;
+};
+
+export const validateKeywords = (text: string) => {
+  if (!text.length) return false;
+  const keywordsCount = splitKeywords(text).length;
+  return keywordsCount > 0 && keywordsCount <= 2;
+};
+
 function SearchInput() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -27,9 +39,9 @@ function SearchInput() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  const onSubmit = (data: z.infer<typeof FormSchema>) => {
     console.log(data);
-  }
+  };
 
   return (
     <Form {...form}>
