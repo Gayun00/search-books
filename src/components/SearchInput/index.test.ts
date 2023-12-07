@@ -26,15 +26,17 @@ describe("SearchInput 테스트", () => {
     expect(isValidKeywords5).toBe(false);
   });
 
-  it("| (and) 연산자로 검색할 때, 두개의 키워드 검색결과를 합쳐 보여준다", () => {
-    const searchBooks = jest.fn().mockImplementation((keyword) => {
-      return [
+  it("| (and) 연산자로 검색할 때, 두 개의 키워드 검색 결과를 합쳐 보여준다", async () => {
+    const searchBooks = jest.fn().mockImplementation(({ keyword }) => {
+      return Promise.resolve([
         { title: `Book for ${keyword} 1`, author: `Author for ${keyword} 1` },
         { title: `Book for ${keyword} 2`, author: `Author for ${keyword} 2` },
-      ];
+      ]);
     });
 
-    expect(handleSearchResult(textWithOrOp, searchBooks)).toEqual([
+    const result = await handleSearchResult(textWithOrOp, searchBooks);
+
+    expect(result).toEqual([
       { author: "Author for keyword1 1", title: "Book for keyword1 1" },
       { author: "Author for keyword1 2", title: "Book for keyword1 2" },
       { author: "Author for keyword2 1", title: "Book for keyword2 1" },
@@ -42,8 +44,8 @@ describe("SearchInput 테스트", () => {
     ]);
   });
 
-  it("- (not) 연산자로 검색할 때, 첫번째 키워드 검색 결과 중 두 번째 키워드를 제목에 포함하는 값을 제외해 보여준다", () => {
-    const searchBooks = jest.fn().mockImplementation((keyword) => {
+  it("- (not) 연산자로 검색할 때, 첫번째 키워드 검색 결과 중 두 번째 키워드를 제목에 포함하는 값을 제외해 보여준다", async () => {
+    const searchBooks = jest.fn().mockImplementation(({ keyword }) => {
       return [
         { title: `Book for ${keyword} 1`, author: `Author for ${keyword} 1` },
         { title: `Book for ${keyword} 2`, author: `Author for ${keyword} 2` },
@@ -51,8 +53,9 @@ describe("SearchInput 테스트", () => {
     });
 
     const text = "keyword1-2";
+    const result = await handleSearchResult(text, searchBooks);
 
-    expect(handleSearchResult(text, searchBooks)).toEqual([
+    expect(result).toEqual([
       { author: "Author for keyword1 1", title: "Book for keyword1 1" },
     ]);
   });

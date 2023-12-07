@@ -13,6 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { BookData } from "@/types";
+import { searchBooks } from "@/api";
 
 const FormSchema = z.object({
   keyword: z.string().min(1, {
@@ -32,23 +33,24 @@ export const validateKeywords = (text: string) => {
   return keywordsCount > 0 && keywordsCount <= 2;
 };
 
-export const handleSearchResult = (
+export const handleSearchResult = async (
   text: string,
-  searchBooks: (keyword: string) => BookData[]
+  searchBooks: ({ keyword }: { keyword: string }) => Promise<BookData[]>
 ) => {
   const hasOrOperator = text.includes("|");
   const hasNotOperator = text.includes("-");
 
   if (hasOrOperator) {
     const [keyword1, keyword2] = splitKeywords(text);
-    return [...searchBooks(keyword1), ...searchBooks(keyword2)];
+    const firstSearchedBooks = await searchBooks({ keyword: keyword1 });
+    const secondSearchedBooks = await searchBooks({ keyword: keyword2 });
+    return [...firstSearchedBooks, ...secondSearchedBooks];
   }
 
   if (hasNotOperator) {
     const [keyword1, keyword2] = splitKeywords(text);
-    return searchBooks(keyword1).filter(
-      (result) => !result.title.includes(keyword2)
-    );
+    const searchedBooks = await searchBooks({ keyword: keyword1 });
+    return searchedBooks.filter((result) => !result.title.includes(keyword2));
   }
 };
 
@@ -62,6 +64,7 @@ function SearchInput() {
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     console.log(data);
+    handleSearchResult(data.keyword, searchBooks);
   };
 
   return (
