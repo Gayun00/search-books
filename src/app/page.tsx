@@ -24,7 +24,6 @@ export default function Home() {
     handleBookSearch();
   }, [keywords, handleBookSearch]);
 
-  // TODO: data로 검색 목록 표시
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
       <SearchInput onSubmit={handleSubmit} />
