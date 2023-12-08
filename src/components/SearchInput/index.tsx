@@ -13,7 +13,6 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { UseFormReturn } from "react-hook-form";
 
 interface Props {
   onSubmit: (text: string) => void;
@@ -41,7 +40,7 @@ function SearchInput({ onSubmit }: Props) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmitInput)}
-        className="flex items-center gap-x-3 justify-between w-full"
+        className="flex items-start gap-x-3 justify-between w-full max-w-3xl min-w-max"
       >
         <FormField
           control={form.control}
@@ -56,7 +55,7 @@ function SearchInput({ onSubmit }: Props) {
           )}
         />
         <Button className="basis-1/4" type="submit">
-          Submit
+          검색
         </Button>
       </form>
     </Form>

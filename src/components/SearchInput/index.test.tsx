@@ -8,7 +8,7 @@ describe("SearchInput 테스트", () => {
     const { getByText } = render(<SearchInput onSubmit={handleSubmit} />);
 
     await act(() => {
-      fireEvent.submit(getByText("Submit"));
+      fireEvent.submit(getByText("검색"));
     });
 
     expect(getByText("한 글자 이상 입력하세요")).toBeInTheDocument();
@@ -20,7 +20,7 @@ describe("SearchInput 테스트", () => {
     const { getByText, getByPlaceholderText } = render(
       <SearchInput onSubmit={handleSubmit} />
     );
-    const submitButton = getByText("Submit");
+    const submitButton = getByText("검색");
     const input = getByPlaceholderText(
       "검색어를 입력하세요"
     ) as HTMLInputElement;
@@ -34,6 +34,6 @@ describe("SearchInput 테스트", () => {
     });
 
     expect(input.value).toEqual("text");
-    expect(handleSubmit).toHaveBeenCalled();
+    expect(handleSubmit).toBeCalledWith("text");
   });
 });
