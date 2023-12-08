@@ -13,15 +13,21 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { validateKeywords } from "@/utils/handleKeywords";
 
 interface Props {
   onSubmit: (text: string) => void;
 }
 
 const FormSchema = z.object({
-  keyword: z.string().min(1, {
-    message: "한 글자 이상 입력하세요",
-  }),
+  keyword: z
+    .string()
+    .refine((value) => value.length > 0, {
+      message: "한 글자 이상 입력하세요",
+    })
+    .refine((value) => validateKeywords(value), {
+      message: "검색 키워드는 최대 2개까지 입력 가능합니다",
+    }),
 });
 
 function SearchInput({ onSubmit }: Props) {
