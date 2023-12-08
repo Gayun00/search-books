@@ -14,7 +14,7 @@ interface Props extends BookProps {}
 
 function Book({ title, subtitle, url, image }: Props) {
   return (
-    <Card>
+    <Card className="flex flex-col justify-between">
       <CardContent>
         <Image
           src={image}
@@ -30,7 +30,10 @@ function Book({ title, subtitle, url, image }: Props) {
       </CardContent>
 
       <CardFooter>
-        <Link className="underline text-gray-400" href={url}>
+        <Link
+          className="underline text-gray-400 text-ellipsis overflow-hidden"
+          href={url}
+        >
           {url}
         </Link>
       </CardFooter>
