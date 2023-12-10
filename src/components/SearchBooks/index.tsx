@@ -6,10 +6,12 @@ import { BookData } from "@/types";
 import { handleSearchResult } from "@/utils/handleKeywords";
 import BookList from "@/components/BookList";
 import SearchInput from "@/components/SearchInput";
+import NoData from "../fallbacks/NoData";
 
 function SearchBooks() {
   const [keywords, setKeywords] = useState("");
   const [data, setData] = useState<BookData[]>([]);
+  const hasNoSearchResult = !!(keywords.length && !data.length);
 
   const handleSubmit = (text: string) => {
     setKeywords(text);
@@ -27,7 +29,11 @@ function SearchBooks() {
   return (
     <div className="flex min-h-screen flex-col items-center p-24">
       <SearchInput onSubmit={handleSubmit} />
-      <BookList title="검색 결과" bookList={data} />
+      {hasNoSearchResult ? (
+        <NoData text="검색 결과가 없습니다" />
+      ) : (
+        <BookList title="검색 결과" bookList={data} />
+      )}
     </div>
   );
 }

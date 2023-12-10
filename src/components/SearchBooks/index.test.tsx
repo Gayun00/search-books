@@ -4,6 +4,7 @@ import SearchBooks from ".";
 
 jest.mock("@/api", () => ({
   searchBooks: jest.fn().mockImplementation(({ keyword }) => {
+    if (keyword == "noData") return [];
     return Promise.resolve([
       {
         title: `Book for ${keyword} 1`,
@@ -32,7 +33,7 @@ describe("SearchBooks 테스트", () => {
       fireEvent.click(submitButton);
     });
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(api.searchBooks).toHaveBeenCalledWith({ keyword: "python" });
       expect(getByText("Book for python 1")).toBeInTheDocument();
       expect(getByText("Book for python 2")).toBeInTheDocument();
@@ -49,7 +50,7 @@ describe("SearchBooks 테스트", () => {
       fireEvent.click(submitButton);
     });
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(getByText("Book for python 1")).toBeInTheDocument();
       expect(getByText("Book for python 2")).toBeInTheDocument();
       expect(getByText("Book for mongo 1")).toBeInTheDocument();
@@ -69,9 +70,27 @@ describe("SearchBooks 테스트", () => {
       fireEvent.click(submitButton);
     });
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(getByText("Book for python 1")).toBeInTheDocument();
       expect(queryByText("Book for python 2")).not.toBeInTheDocument();
+    });
+  });
+
+  it("검색 결과가 없으면 결과 없음 UI가 표시된다", async () => {
+    const { getByText, queryByText, getByPlaceholderText } = render(
+      <SearchBooks />
+    );
+    const inputField = getByPlaceholderText("검색어를 입력하세요");
+    const submitButton = getByText("검색");
+
+    act(() => {
+      fireEvent.change(inputField, { target: { value: "noData" } });
+      fireEvent.click(submitButton);
+    });
+
+    await waitFor(() => {
+      expect(getByText("검색 결과가 없습니다")).toBeInTheDocument();
+      expect(queryByText("검색 결과")).not.toBeInTheDocument();
     });
   });
 });

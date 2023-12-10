@@ -1,5 +1,5 @@
 import { BookProps } from "@/types";
-import React, { ReactNode } from "react";
+import React from "react";
 import Book from "../Book";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 function BookList({ title, subtitle, bookList }: Props) {
   return (
-    <section className="w-full py-12">
+    <section className="w-full py-12 min-w-[500px]">
       <div className="container grid gap-6 md:gap-8 px-4 md:px-6 max-w-xl mx-auto lg:max-w-none">
         <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8">
           <div className="grid gap-1">
@@ -20,7 +20,8 @@ function BookList({ title, subtitle, bookList }: Props) {
             )}
           </div>
         </div>
-        <div className="grid lg:grid-cols-3 gap-8">
+
+        <div className="w-full grid lg:grid-cols-3 gap-8">
           {bookList.map((book) => (
             <Book
               key={book.url}
