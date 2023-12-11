@@ -1,3 +1,5 @@
+"use client";
+
 import React, { Fragment, useEffect, useState } from "react";
 import { BookData } from "@/types";
 import BookList from "@/components/BookList";
@@ -41,7 +43,7 @@ function SearchBooks() {
                 <Fragment key={idx}>
                   {page?.books?.map((book: BookData) => (
                     <Book
-                      key={book.url}
+                      key={book.isbn13}
                       title={book.title}
                       subtitle={book.subtitle}
                       image={book.image}

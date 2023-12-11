@@ -1,4 +1,3 @@
-import { BookDetailProps } from "@/types";
 import React from "react";
 import {
   Card,
@@ -9,7 +8,19 @@ import {
 } from "../ui/card";
 import Image from "next/image";
 
-interface Props extends BookDetailProps {}
+interface Props {
+  title: string;
+  subtitle: string;
+  image: string;
+  url: string;
+  price: string;
+  isbn13: string;
+  publisher: string;
+  pages: string;
+  rating: string;
+  desc: string;
+  authors: string;
+}
 
 function BookInfo({
   title,
@@ -31,7 +42,13 @@ function BookInfo({
       </CardHeader>
 
       <CardContent className="flex flex-col items-center gap-y-5">
-        <Image src={image} width={200} height={400} alt={`${title}_img`} />
+        <Image
+          className="w-auto h-auto"
+          src={image}
+          width={200}
+          height={400}
+          alt={`${title}_img`}
+        />
         <CardWrapper title="Rating" data={rating} />
         <CardWrapper title="Publisher" data={publisher} />
         <CardWrapper title="Isbn13" data={isbn13} />
