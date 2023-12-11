@@ -2,13 +2,13 @@
 
 import React, { Fragment, useEffect, useState } from "react";
 import { BookData } from "@/types";
-import BookList from "@/components/BookList";
-import SearchInput from "@/components/SearchInput";
+import { useSearchBooksQuery } from "@/queries";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import Book from "@/components/Book";
-import NoDataFallback from "../fallbacks/NoDataFallback";
-import Spinner from "../fallbacks/Spinner";
-import { useSearchBooksQuery } from "@/queries";
+import NoDataFallback from "@/components/fallbacks/NoDataFallback";
+import BookList from "@/components/BookList";
+import SearchInput from "@/components/SearchInput";
+import Spinner from "@/components/fallbacks/Spinner";
 
 function SearchBooks() {
   const [keywords, setKeywords] = useState("");

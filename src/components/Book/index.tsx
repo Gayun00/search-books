@@ -1,4 +1,6 @@
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -6,8 +8,6 @@ import {
   CardFooter,
   CardTitle,
 } from "@/components/ui/card";
-import Image from "next/image";
-import Link from "next/link";
 
 interface Props {
   title: string;
