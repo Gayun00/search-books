@@ -96,6 +96,7 @@ function SearchBooks() {
                       subtitle={book.subtitle}
                       image={book.image}
                       url={book.url}
+                      isbn13={book.isbn13}
                     />
                   ))}
                 </Fragment>

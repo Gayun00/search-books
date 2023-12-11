@@ -3,6 +3,7 @@ export interface BookProps {
   subtitle: string;
   image: string;
   url: string;
+  isbn13: string;
 }
 
 export interface BookData {

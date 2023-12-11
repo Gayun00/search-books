@@ -12,26 +12,28 @@ import { BookProps } from "@/types";
 
 interface Props extends BookProps {}
 
-function Book({ title, subtitle, url, image }: Props) {
+function Book({ title, subtitle, url, image, isbn13 }: Props) {
   return (
     <Card className="flex flex-col justify-between">
-      <CardContent>
-        <Image
-          src={image}
-          alt={`${title}_image`}
-          className="rounded-lg object-cover w-full aspect-[3/4] "
-          height={600}
-          width={450}
-        />
-        <div className="space-y-3">
-          <CardTitle className="text-md overflow-ellipsis overflow-hidden line-clamp-2">
-            {title}
-          </CardTitle>
-          <CardDescription className="overflow-ellipsis overflow-hidden line-clamp-2">
-            {subtitle}
-          </CardDescription>
-        </div>
-      </CardContent>
+      <Link href={`/books/${isbn13}`}>
+        <CardContent>
+          <Image
+            src={image}
+            alt={`${title}_image`}
+            className="rounded-lg object-cover w-full aspect-[3/4] "
+            height={600}
+            width={450}
+          />
+          <div className="space-y-3">
+            <CardTitle className="text-md overflow-ellipsis overflow-hidden line-clamp-2">
+              {title}
+            </CardTitle>
+            <CardDescription className="overflow-ellipsis overflow-hidden line-clamp-2">
+              {subtitle}
+            </CardDescription>
+          </div>
+        </CardContent>
+      </Link>
 
       <CardFooter>
         <Link
