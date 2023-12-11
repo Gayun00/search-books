@@ -28,6 +28,24 @@ jest.mock("@/api", () => ({
 }));
 
 describe("SearchBooks 테스트", () => {
+  it("검색 결과에는 title, image, url, subtitle이 표시되어야 한다", () => {
+    const { getByText, getByPlaceholderText } = customRender(<SearchBooks />);
+    const inputField = getByPlaceholderText("검색어를 입력하세요");
+    const submitButton = getByText("검색");
+
+    act(() => {
+      fireEvent.change(inputField, { target: { value: "python" } });
+      fireEvent.click(submitButton);
+    });
+
+    waitFor(() => {
+      expect(getByText("Book for python 1")).toBeInTheDocument();
+      expect(getByText("Subtitle for python 2")).toBeInTheDocument();
+      expect(getByText("url for python 2")).toBeInTheDocument();
+      expect(getByText("https://books/python/1")).toBeInTheDocument();
+    });
+  });
+
   it("하나의 키워드만 입력하면 해당 키워드의 검색 결과를 표시한다", async () => {
     const { getByText, getByPlaceholderText } = customRender(<SearchBooks />);
     const inputField = getByPlaceholderText("검색어를 입력하세요");
