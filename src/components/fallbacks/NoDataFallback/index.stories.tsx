@@ -22,7 +22,7 @@ const Template = () => {
 
 const WithTextTemplate = () => {
   return (
-    <div className="w-80 bg-slate-300">
+    <div className="w-80">
       <NoDataFallback text="검색 결과가 없습니다." />
     </div>
   );
