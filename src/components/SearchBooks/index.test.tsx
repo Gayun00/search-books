@@ -16,6 +16,7 @@ jest.mock("@/api", () => ({
         page: "1",
         error: "0",
         books: [],
+        isbn13: `isbn-${keyword}`,
       };
     }
     return Promise.resolve({
@@ -28,12 +29,14 @@ jest.mock("@/api", () => ({
           subtitle: `Subtitle for ${keyword} 1`,
           url: `url for ${keyword} 1`,
           image: `https://books/${keyword}/1`,
+          isbn13: `isbn-${keyword}`,
         },
         {
           title: `Book for ${keyword} 2`,
           subtitle: `Subtitle for ${keyword} 2`,
           url: `url for ${keyword} 2`,
           image: `https://books/${keyword}/2`,
+          isbn13: `isbn-${keyword}`,
         },
       ],
     });
