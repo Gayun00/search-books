@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Component from ".";
+import Book from ".";
 
-const meta: Meta<typeof Component> = {
-  title: "Component/Book",
-  component: Component,
+const meta: Meta<typeof Book> = {
+  title: "components/Book",
+  component: Book,
   parameters: {
     layout: "centered",
   },
@@ -11,7 +11,7 @@ const meta: Meta<typeof Component> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Component>;
+type Story = StoryObj<typeof Book>;
 
 export const Default: Story = {
   args: {

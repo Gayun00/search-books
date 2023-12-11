@@ -1,9 +1,8 @@
 import type { Meta } from "@storybook/react";
 import BookInfo from ".";
-import Book from "../Book";
 
 const meta: Meta<typeof BookInfo> = {
-  title: "Component/BookInfo",
+  title: "components/BookInfo",
   component: BookInfo,
   parameters: {
     layout: "centered",
