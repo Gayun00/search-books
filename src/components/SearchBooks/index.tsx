@@ -6,7 +6,7 @@ import BookList from "@/components/BookList";
 import SearchInput from "@/components/SearchInput";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import Book from "@/components/Book";
-import NoData from "../fallbacks/NoData";
+import NoDataFallback from "../fallbacks/NoDataFallback";
 import Spinner from "../fallbacks/Spinner";
 import { useSearchBooksQuery } from "@/queries";
 
@@ -55,7 +55,9 @@ function SearchBooks() {
               ))}
             </BookList>
 
-            {hasNoSearchResults && <NoData text="검색 결과가 없습니다" />}
+            {hasNoSearchResults && (
+              <NoDataFallback text="검색 결과가 없습니다" />
+            )}
           </>
         )}
       </div>

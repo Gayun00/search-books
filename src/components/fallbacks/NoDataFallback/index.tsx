@@ -5,7 +5,7 @@ interface Props {
   text?: string;
 }
 
-function NoData({ text }: Props) {
+function NoDataFallback({ text }: Props) {
   return (
     <div className="flex flex-col items-center w-full">
       <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
@@ -14,4 +14,4 @@ function NoData({ text }: Props) {
   );
 }
 
-export default NoData;
+export default NoDataFallback;
