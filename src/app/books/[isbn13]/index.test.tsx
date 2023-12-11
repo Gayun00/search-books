@@ -3,15 +3,6 @@ import Page from "./Client";
 
 jest.mock("@/api", () => ({
   getBook: jest.fn().mockImplementation(({ isbn13 }) => {
-    if (isbn13 == "noData") {
-      return {
-        total: "700",
-        page: "1",
-        error: "0",
-        books: [],
-        isbn13: `isbn-${isbn13}`,
-      };
-    }
     return Promise.resolve({
       error: "0",
       title: `title ${isbn13}`,

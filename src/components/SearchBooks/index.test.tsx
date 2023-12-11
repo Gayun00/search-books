@@ -44,7 +44,7 @@ jest.mock("@/api", () => ({
 }));
 
 describe("SearchBooks 테스트", () => {
-  it("검색 결과에는 title, image, url, subtitle이 표시되어야 한다", () => {
+  it("검색 결과에는 title, image, url, subtitle이 표시되어야 한다", async () => {
     const { getByText, getByPlaceholderText, getByAltText } = customRender(
       <SearchBooks />
     );
@@ -56,7 +56,7 @@ describe("SearchBooks 테스트", () => {
       fireEvent.click(submitButton);
     });
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(getByText("Book for python 1")).toBeInTheDocument();
       expect(getByText("Subtitle for python 2")).toBeInTheDocument();
       expect(getByText("url for python 2")).toBeInTheDocument();
