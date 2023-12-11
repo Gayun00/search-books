@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Spin } from "antd";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { BookData } from "@/types";
 import BookList from "@/components/BookList";
@@ -8,11 +7,13 @@ import { searchBooks } from "@/api";
 import { splitKeywords } from "@/utils/handleKeywords";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import Book from "@/components/Book";
+import NoData from "../fallbacks/NoData";
+import Spinner from "../fallbacks/Spinner";
 
 function SearchBooks() {
   const [keywords, setKeywords] = useState("");
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { data, fetchNextPage, isLoading, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({
       queryKey: ["searchBooks", keywords],
       queryFn: async ({ pageParam }) => {
@@ -63,6 +64,9 @@ function SearchBooks() {
       initialPageParam: 1,
     });
 
+  const hasNoSearchResults = !data?.pages[0].books.length;
+  const hasSearchResults = !!(!isLoading && keywords.length);
+
   const { targetRef } = useIntersectionObserver({
     onIntersect: fetchNextPage,
   });
@@ -76,26 +80,34 @@ function SearchBooks() {
   }, [keywords, fetchNextPage]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center p-24">
+    <div className="flex min-h-screen flex-col items-center p-24 lg:min-w-[1000px]">
       <SearchInput onSubmit={handleSubmit} />
-      <BookList title="검색 결과">
-        {data?.pages?.map((page, idx) => (
-          <Fragment key={idx}>
-            {page?.books?.map((book: BookData) => (
-              <Book
-                key={book.url}
-                title={book.title}
-                subtitle={book.subtitle}
-                image={book.image}
-                url={book.url}
-              />
-            ))}
-          </Fragment>
-        ))}
-      </BookList>
+      <div className="w-full py-12 min-w-[500px]">
+        {isLoading && <Spinner />}
+        {hasSearchResults && (
+          <>
+            <BookList title="검색 결과">
+              {data?.pages?.map((page, idx) => (
+                <Fragment key={idx}>
+                  {page?.books?.map((book: BookData) => (
+                    <Book
+                      key={book.url}
+                      title={book.title}
+                      subtitle={book.subtitle}
+                      image={book.image}
+                      url={book.url}
+                    />
+                  ))}
+                </Fragment>
+              ))}
+            </BookList>
 
-      {/* TODO: 스크롤 시 추가 렌더링되도록 변경 */}
-      {isFetchingNextPage && <Spin />}
+            {hasNoSearchResults && <NoData text="검색 결과가 없습니다" />}
+          </>
+        )}
+      </div>
+
+      {isFetchingNextPage && <Spinner />}
       {hasNextPage && !isFetchingNextPage && (
         <div ref={targetRef} className="h-200px bg-slate-500"></div>
       )}

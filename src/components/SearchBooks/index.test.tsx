@@ -3,8 +3,21 @@ import * as api from "@/api";
 import SearchBooks from ".";
 import { customRender } from "@/utils/testUtils";
 
+jest.mock("@/hooks/useIntersectionObserver", () => ({
+  __esModule: true,
+  default: jest.fn(() => ({ targetRef: { current: {} } })),
+}));
+
 jest.mock("@/api", () => ({
   searchBooks: jest.fn().mockImplementation(({ keyword }) => {
+    if (keyword == "noData") {
+      return {
+        total: "700",
+        page: "1",
+        error: "0",
+        books: [],
+      };
+    }
     return Promise.resolve({
       total: "700",
       page: "1",
@@ -29,7 +42,9 @@ jest.mock("@/api", () => ({
 
 describe("SearchBooks 테스트", () => {
   it("검색 결과에는 title, image, url, subtitle이 표시되어야 한다", () => {
-    const { getByText, getByPlaceholderText } = customRender(<SearchBooks />);
+    const { getByText, getByPlaceholderText, getByAltText } = customRender(
+      <SearchBooks />
+    );
     const inputField = getByPlaceholderText("검색어를 입력하세요");
     const submitButton = getByText("검색");
 
@@ -42,7 +57,7 @@ describe("SearchBooks 테스트", () => {
       expect(getByText("Book for python 1")).toBeInTheDocument();
       expect(getByText("Subtitle for python 2")).toBeInTheDocument();
       expect(getByText("url for python 2")).toBeInTheDocument();
-      expect(getByText("https://books/python/1")).toBeInTheDocument();
+      expect(getByAltText("Book for python 1_image")).toBeInTheDocument();
     });
   });
 
@@ -56,8 +71,11 @@ describe("SearchBooks 테스트", () => {
       fireEvent.click(submitButton);
     });
 
-    waitFor(() => {
-      expect(api.searchBooks).toHaveBeenCalledWith({ keyword: "python" });
+    await waitFor(() => {
+      expect(api.searchBooks).toHaveBeenCalledWith({
+        keyword: "python",
+        page: 1,
+      });
       expect(getByText("Book for python 1")).toBeInTheDocument();
       expect(getByText("Book for python 2")).toBeInTheDocument();
     });
@@ -73,7 +91,7 @@ describe("SearchBooks 테스트", () => {
       fireEvent.click(submitButton);
     });
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(getByText("Book for python 1")).toBeInTheDocument();
       expect(getByText("Book for python 2")).toBeInTheDocument();
       expect(getByText("Book for mongo 1")).toBeInTheDocument();
@@ -93,9 +111,24 @@ describe("SearchBooks 테스트", () => {
       fireEvent.click(submitButton);
     });
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(getByText("Book for python 1")).toBeInTheDocument();
       expect(queryByText("Book for python 2")).not.toBeInTheDocument();
+    });
+  });
+
+  it("검색 결과가 없으면 결과 없음 UI가 표시된다", async () => {
+    const { getByText, getByPlaceholderText } = customRender(<SearchBooks />);
+    const inputField = getByPlaceholderText("검색어를 입력하세요");
+    const submitButton = getByText("검색");
+
+    act(() => {
+      fireEvent.change(inputField, { target: { value: "noData" } });
+      fireEvent.click(submitButton);
+    });
+
+    await waitFor(() => {
+      expect(getByText("검색 결과가 없습니다")).toBeInTheDocument();
     });
   });
 });
