@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import { Spin } from "antd";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { BookData } from "@/types";
 import BookList from "@/components/BookList";
 import SearchInput from "@/components/SearchInput";
 import { searchBooks } from "@/api";
-import Book from "../Book";
 import { splitKeywords } from "@/utils/handleKeywords";
+import useIntersectionObserver from "@/hooks/useIntersectionObserver";
+import Book from "@/components/Book";
 
 function SearchBooks() {
   const [keywords, setKeywords] = useState("");
@@ -61,6 +63,10 @@ function SearchBooks() {
       initialPageParam: 1,
     });
 
+  const { targetRef } = useIntersectionObserver({
+    onIntersect: fetchNextPage,
+  });
+
   const handleSubmit = (text: string) => {
     setKeywords(text);
   };
@@ -74,7 +80,7 @@ function SearchBooks() {
       <SearchInput onSubmit={handleSubmit} />
       <BookList title="검색 결과">
         {data?.pages?.map((page, idx) => (
-          <div key={idx}>
+          <Fragment key={idx}>
             {page?.books?.map((book: BookData) => (
               <Book
                 key={book.url}
@@ -84,13 +90,14 @@ function SearchBooks() {
                 url={book.url}
               />
             ))}
-          </div>
+          </Fragment>
         ))}
       </BookList>
-      {hasNextPage && (
-        <button onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
-          {isFetchingNextPage ? "Loading more..." : "Load More"}
-        </button>
+
+      {/* TODO: 스크롤 시 추가 렌더링되도록 변경 */}
+      {isFetchingNextPage && <Spin />}
+      {hasNextPage && !isFetchingNextPage && (
+        <div ref={targetRef} className="h-200px bg-slate-500"></div>
       )}
     </div>
   );
