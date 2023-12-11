@@ -24,8 +24,12 @@ function Book({ title, subtitle, url, image }: Props) {
           width={450}
         />
         <div className="space-y-3">
-          <CardTitle>{title}</CardTitle>
-          <CardDescription>{subtitle}</CardDescription>
+          <CardTitle className="text-md overflow-ellipsis overflow-hidden line-clamp-2">
+            {title}
+          </CardTitle>
+          <CardDescription className="overflow-ellipsis overflow-hidden line-clamp-2">
+            {subtitle}
+          </CardDescription>
         </div>
       </CardContent>
 
