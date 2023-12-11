@@ -1,20 +1,15 @@
 "use client";
 
 import React from "react";
-import { getBook } from "@/api";
 import BookInfo from "@/components/BookInfo";
-import { useQuery } from "@tanstack/react-query";
+import { useBookQuery } from "@/queries";
 
 interface Props {
   isbn13: string;
 }
 
 function Client({ isbn13 }: Props) {
-  const { data } = useQuery({
-    queryKey: ["book"],
-    queryFn: () => getBook({ isbn13 }),
-  });
-
+  const { data } = useBookQuery({ isbn13 });
   return (
     <>
       {data && (

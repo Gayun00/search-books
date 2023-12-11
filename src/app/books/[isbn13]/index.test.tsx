@@ -1,4 +1,4 @@
-import { customRender, getByAltText, waitFor } from "@/utils/testUtils";
+import { customRender, waitFor } from "@/utils/testUtils";
 import Page from "./Client";
 
 jest.mock("@/api", () => ({
@@ -24,7 +24,7 @@ jest.mock("@/api", () => ({
       year: "2018",
       rating: `rating ${isbn13}`,
       desc: `desc ${isbn13}`,
-      price: "$26.98",
+      price: `price ${isbn13}`,
       image: `https://${isbn13}.png`,
       url: `https://books/${isbn13}`,
       pdf: {
@@ -38,9 +38,9 @@ jest.mock("@/api", () => ({
 const ISBN_13 = "0203020";
 
 describe("도서 상세페이지 테스트", () => {
-  it("title, subtitle, authors, publisher, pages, rating, desc, price, image 프로퍼티가 표시된다.", () => {
+  it("title, subtitle, authors, publisher, pages, rating, desc, price, image 프로퍼티가 표시된다.", async () => {
     const { getByText, getByAltText } = customRender(<Page isbn13={ISBN_13} />);
-    waitFor(() => {
+    await waitFor(() => {
       expect(getByText(`title ${ISBN_13}`)).toBeInTheDocument();
       expect(getByText(`subtitle ${ISBN_13}`)).toBeInTheDocument();
       expect(getByText(`authors ${ISBN_13}`)).toBeInTheDocument();

@@ -8,9 +8,14 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
-import { BookProps } from "@/types";
 
-interface Props extends BookProps {}
+interface Props {
+  title: string;
+  subtitle: string;
+  image: string;
+  url: string;
+  isbn13: string;
+}
 
 function Book({ title, subtitle, url, image, isbn13 }: Props) {
   return (
