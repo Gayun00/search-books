@@ -1,6 +1,7 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getBook, searchBooks } from "@/api";
 import { splitKeywords } from "@/utils/handleKeywords";
+import { bookQueryKeys, searchBookQueryKeys } from "./queryKeys";
 
 const handleResultsWithOrOp = (keywords: string, pageParam: number) => {
   const keywordArray = splitKeywords(keywords);
@@ -36,7 +37,7 @@ const handleResultsWithNotOp = async (keywords: string, pageParam: number) => {
 
 export const useSearchBooksQuery = ({ keywords }: { keywords: string }) => {
   return useInfiniteQuery({
-    queryKey: ["searchBooks", keywords],
+    queryKey: searchBookQueryKeys.list(keywords),
     queryFn: async ({ pageParam }) => {
       const hasOrOperator = keywords.includes("|");
       const hasNotOperator = keywords.includes("-");
@@ -64,7 +65,7 @@ export const useSearchBooksQuery = ({ keywords }: { keywords: string }) => {
 
 export const useBookQuery = ({ isbn13 }: { isbn13: string }) => {
   return useQuery({
-    queryKey: ["book"],
+    queryKey: bookQueryKeys.list(isbn13),
     queryFn: () => getBook({ isbn13 }),
   });
 };
