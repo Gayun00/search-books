@@ -4098,6 +4098,43 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-core@npm:5.13.4":
+  version: 5.13.4
+  resolution: "@tanstack/query-core@npm:5.13.4"
+  checksum: 9ebda1325d2774d766d0c07d3ded3f231fa785147bdf59372240d09c992b2636e5c6aa3660c1de348de395c0de5b1f8aadf28397e1134dbe2d56c38e37b7af1c
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-devtools@npm:5.13.3":
+  version: 5.13.3
+  resolution: "@tanstack/query-devtools@npm:5.13.3"
+  checksum: baa65db5f2755428b3c5f4e237ade7d873f92dbb2c0a78023865eb70aa9fa72a91cd314944d8b6c7e883eef24a835dcd5d6d1ceda5693f549e7e0792565c99bf
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query-devtools@npm:^5.13.4":
+  version: 5.13.4
+  resolution: "@tanstack/react-query-devtools@npm:5.13.4"
+  dependencies:
+    "@tanstack/query-devtools": 5.13.3
+  peerDependencies:
+    "@tanstack/react-query": ^5.13.4
+    react: ^18.0.0
+  checksum: 894689a2d01307707387b182230727b4e18e5313825aecbb37201633601715465eeba832d71dbe4454b34a37a0635edc240b5d795d735403a2dcbf3b11ddd774
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.13.4":
+  version: 5.13.4
+  resolution: "@tanstack/react-query@npm:5.13.4"
+  dependencies:
+    "@tanstack/query-core": 5.13.4
+  peerDependencies:
+    react: ^18.0.0
+  checksum: 5a9afef4d59eb5ac00acdc9d3c5f25c76f2a4d69609a354ff8d81d0260b571d192c3a382b1027d37b1ae8b1e1a63d3d8fba0cec00338ec53bda01721dad8f279
+  languageName: node
+  linkType: hard
+
 "@testing-library/dom@npm:^9.0.0, @testing-library/dom@npm:^9.3.1":
   version: 9.3.3
   resolution: "@testing-library/dom@npm:9.3.3"
@@ -6826,15 +6863,6 @@ __metadata:
   bin:
     create-jest: bin/create-jest.js
   checksum: 1427d49458adcd88547ef6fa39041e1fe9033a661293aa8d2c3aa1b4967cb5bf4f0c00436c7a61816558f28ba2ba81a94d5c962e8022ea9a883978fc8e1f2945
-  languageName: node
-  linkType: hard
-
-"cross-fetch@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "cross-fetch@npm:4.0.0"
-  dependencies:
-    node-fetch: ^2.6.12
-  checksum: ecca4f37ffa0e8283e7a8a590926b66713a7ef7892757aa36c2d20ffa27b0ac5c60dcf453119c809abe5923fc0bae3702a4d896bfb406ef1077b0d0018213e24
   languageName: node
   linkType: hard
 
@@ -11728,7 +11756,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:^2.0.0, node-fetch@npm:^2.6.12":
+"node-fetch@npm:^2.0.0":
   version: 2.7.0
   resolution: "node-fetch@npm:2.7.0"
   dependencies:
@@ -14917,6 +14945,8 @@ __metadata:
     "@storybook/nextjs": ^7.6.3
     "@storybook/react": ^7.6.3
     "@storybook/test": ^7.6.3
+    "@tanstack/react-query": ^5.13.4
+    "@tanstack/react-query-devtools": ^5.13.4
     "@testing-library/jest-dom": ^6.1.5
     "@testing-library/react": ^14.1.2
     "@testing-library/react-hooks": ^8.0.1
@@ -14928,7 +14958,6 @@ __metadata:
     chromatic: ^10.0.0
     class-variance-authority: ^0.7.0
     clsx: ^2.0.0
-    cross-fetch: ^4.0.0
     eslint: ^8
     eslint-config-next: 14.0.3
     eslint-plugin-storybook: ^0.6.15
