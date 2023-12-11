@@ -6,12 +6,17 @@ interface RequestParams<TParams> {
   method?: "get" | "post" | "put" | "delete";
 }
 
+const headers: HeadersInit = {
+  "Content-Type": "application/json; charset=utf-8",
+};
+
 export const apiRequest = <TParams>({
   path,
   method,
   params,
 }: RequestParams<TParams>) => {
   return fetch(`${API_SERVER}${path}`, {
+    headers,
     method,
     body: JSON.stringify(params),
   }).then((res) => res.json());
