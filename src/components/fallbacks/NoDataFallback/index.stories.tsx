@@ -1,9 +1,9 @@
 import type { Meta } from "@storybook/react";
-import NoData from ".";
+import NoDataFallback from ".";
 
-const meta: Meta<typeof NoData> = {
-  title: "fallbacks/NoData",
-  component: NoData,
+const meta: Meta<typeof NoDataFallback> = {
+  title: "fallbacks/NoDataFallback",
+  component: NoDataFallback,
   parameters: {
     layout: "centered",
   },
@@ -15,7 +15,7 @@ export default meta;
 const Template = () => {
   return (
     <div className="w-80">
-      <NoData />
+      <NoDataFallback />
     </div>
   );
 };
@@ -23,7 +23,7 @@ const Template = () => {
 const WithTextTemplate = () => {
   return (
     <div className="w-80">
-      <NoData text="검색 결과가 없습니다." />
+      <NoDataFallback text="검색 결과가 없습니다." />
     </div>
   );
 };
