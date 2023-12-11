@@ -46,7 +46,7 @@ function SearchInput({ onSubmit }: Props) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmitInput)}
-        className="flex items-start gap-x-3 justify-between w-full max-w-3xl min-w-max"
+        className="flex items-start gap-x-3 justify-between w-full max-w-3xl min-w-[500px]"
       >
         <FormField
           control={form.control}
