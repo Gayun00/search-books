@@ -1,9 +1,10 @@
 ### 도서 검색 사이트 구현
 
-#### Link
+#### 🔗 Link
 
-[배포 링크]()
-[storybook 배포 링크]()
+[배포 링크](https://search-books-teal.vercel.app/)
+
+[storybook 배포 링크](https://65711c31c75b0cdd89f3a670-afhmbszezz.chromatic.com/?path=/story/fallbacks-nodatafallback--with-text)
 
 <br/>
 
@@ -14,8 +15,8 @@
 | <img width="773" alt="스크린샷 2023-12-12 오전 1 05 37" src="https://github.com/Gayun00/widget/assets/67543454/352aed67-5b0e-4cf6-be58-fae875702854"> | <img width="713" alt="스크린샷 2023-12-12 오전 1 07 21" src="https://github.com/Gayun00/widget/assets/67543454/89ffbd3c-53cd-4854-bdbf-a9b3791e5b99"> |
 |                                                                                                                                                                |
 
-| 도서 검색                                                                                                             | 도서 상세 페이지로 이동                                                                                               |
-| --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --- |
+| 도서 검색                                                                                                             | 도서 상세 페이지로 이동     |
+| ------------------------ | ---------------------------- | 
 | ![ezgif com-video-to-gif (4)](https://github.com/Gayun00/widget/assets/67543454/a09739b0-15e9-44b2-b721-bd8df8209a16) | ![ezgif com-video-to-gif (6)](https://github.com/Gayun00/widget/assets/67543454/0640bc06-911a-4b97-b16a-4b5efb2a929e) |     |
 
 <br/>
@@ -61,6 +62,16 @@
 #### 📒 Point
 
 - TDD로 작업을 진행했습니다.
+- UI 컴포넌트 작업 시 Storybook을 사용해 UI를 담당하는 독립적인 컴포넌트를 설계하고, 컴포넌트 내용을 문서화했습니다.
+
+<img width="317" alt="스크린샷 2023-12-12 오전 1 27 12" src="https://github.com/Gayun00/widget/assets/67543454/5a8f033a-4663-4991-8852-e28850834184">
+
+- 도서 상세페이지의 경우, SEO 최적화와 초기 로딩 속도를 고려하여 SSR을 적용했습니다.
+- 간결한 테스트 코드 작성을 위한 TestUtils 함수를 정의해 사용했습니다.
+- useInfiniteQuery와 useIntersectionObserver 커스텀 훅을 사용해 무한 스크롤 기능을 구현했습니다.
+- 검색어 입력 시 검색어가 없는 경우, 최대 키워드 갯수가 2개를 초과하는 경우에 대한 유효성 검사를 구현했습니다.
+
+
 
 <br/>
 
@@ -84,4 +95,4 @@
 
 #### 📒 Task
 
-- github issue 생성을 통해 task를 관리하고, 관련 PR에 연결해 쉽게 찾아보고 히스토리를 관리할 수 있도록 했습니다.
+- github issue 생성을 통해 task를 관리하고, 관련 PR에 연결해 쉽게 찾아보고 히스토리를 관리할 수 있도록 했습니다. [(바로가기)](https://github.com/Gayun00/search-books/issues?q=is%3Aissue+is%3Aclosed)
