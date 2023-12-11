@@ -15,9 +15,31 @@ export interface BookData {
   isbn13: string;
 }
 
-export interface SearchBookResponse {
+export interface SearchBookResponse extends CommonResponse {
   page: string;
-  error: string;
   books: BookData[];
+}
+
+export interface CommonResponse {
   total: string;
+  error: string;
+}
+
+export interface BookDetailProps extends BookData {
+  publisher: string;
+  pages: string;
+  rating: string;
+  desc: string;
+  authors: string;
+}
+
+export interface GetBookResponse extends BookData, CommonResponse {
+  authors: string;
+  publisher: string;
+  isbn10: string;
+  pages: string;
+  year: string;
+  rating: string;
+  desc: string;
+  pdf: Record<string, string>;
 }
