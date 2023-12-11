@@ -3,7 +3,7 @@ import BookList from ".";
 import Book from "../Book";
 
 const meta: Meta<typeof BookList> = {
-  title: "Component/BookList",
+  title: "components/BookList",
   component: BookList,
   parameters: {
     layout: "centered",

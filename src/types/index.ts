@@ -1,9 +1,6 @@
-export interface BookProps {
-  title: string;
-  subtitle: string;
-  image: string;
-  url: string;
-  isbn13: string;
+export interface CommonResponse {
+  total: string;
+  error: string;
 }
 
 export interface BookData {
@@ -20,19 +17,6 @@ export interface SearchBookResponse extends CommonResponse {
   books: BookData[];
 }
 
-export interface CommonResponse {
-  total: string;
-  error: string;
-}
-
-export interface BookDetailProps extends BookData {
-  publisher: string;
-  pages: string;
-  rating: string;
-  desc: string;
-  authors: string;
-}
-
 export interface GetBookResponse extends BookData, CommonResponse {
   authors: string;
   publisher: string;
@@ -42,4 +26,12 @@ export interface GetBookResponse extends BookData, CommonResponse {
   rating: string;
   desc: string;
   pdf: Record<string, string>;
+}
+
+export interface BookProps {
+  title: string;
+  subtitle: string;
+  image: string;
+  url: string;
+  isbn13: string;
 }

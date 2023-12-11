@@ -2,7 +2,7 @@ import type { Meta } from "@storybook/react";
 import SearchInput from ".";
 
 const meta: Meta<typeof SearchInput> = {
-  title: "Component/SearchInput",
+  title: "components/SearchInput",
   component: SearchInput,
   parameters: {
     layout: "centered",

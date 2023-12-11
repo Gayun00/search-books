@@ -36,7 +36,7 @@ jest.mock("@/api", () => ({
           subtitle: `Subtitle for ${keyword} 2`,
           url: `url for ${keyword} 2`,
           image: `https://books/${keyword}/2`,
-          isbn13: `isbn-${keyword}`,
+          isbn13: `isbn-${keyword} 2`,
         },
       ],
     });
