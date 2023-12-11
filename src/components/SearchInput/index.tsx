@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
+import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { validateKeywords } from "@/utils/handleKeywords";
 import { Input } from "@/components/ui/input";
-import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -13,7 +14,6 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { validateKeywords } from "@/utils/handleKeywords";
 
 interface Props {
   onSubmit: (text: string) => void;
