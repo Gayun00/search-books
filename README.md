@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### 도서 검색 사이트 구현
 
-## Getting Started
+#### 🔗 Link
 
-First, run the development server:
+[배포 링크](https://search-books-teal.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[storybook 배포 링크](https://65711c31c75b0cdd89f3a670-afhmbszezz.chromatic.com/?path=/story/fallbacks-nodatafallback--with-text)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<br/>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### Overview
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+| 도서 검색 페이지                                                                                                                                               | 도서 상세 페이지                                                                                                                                               |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <img width="773" alt="스크린샷 2023-12-12 오전 1 05 37" src="https://github.com/Gayun00/widget/assets/67543454/352aed67-5b0e-4cf6-be58-fae875702854"> | <img width="713" alt="스크린샷 2023-12-12 오전 1 07 21" src="https://github.com/Gayun00/widget/assets/67543454/89ffbd3c-53cd-4854-bdbf-a9b3791e5b99"> |
+|                                                                                                                                                                |
 
-## Learn More
+| 도서 검색                                                                                                             | 도서 상세 페이지로 이동     |
+| ------------------------ | ---------------------------- | 
+| ![ezgif com-video-to-gif (4)](https://github.com/Gayun00/widget/assets/67543454/a09739b0-15e9-44b2-b721-bd8df8209a16) | ![ezgif com-video-to-gif (6)](https://github.com/Gayun00/widget/assets/67543454/0640bc06-911a-4b97-b16a-4b5efb2a929e) |     |
 
-To learn more about Next.js, take a look at the following resources:
+<br/>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### Tech stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+| 프레임워크       | 언어      |
+| ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white&style=flat&border"> | <img src="https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=Typescript&style=flat&logoColor=white"> |
 
-## Deploy on Vercel
+| 상태관리 라이브러리         | 유닛 테스트   | 컴포넌트 문서화           |
+| -------------------------------- | -------------- | ---------------------- | 
+| <img src="https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&style=flat&logo=ReactQuery&logoColor=white&border"> | <img src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=Jest&style=fla&logoColor=white&border"> | <img src="https://img.shields.io/badge/storybook-FF4785?style=for-the-badge&logo=storybook&style=flat&logoColor=white&border"> |     |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<br/>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#### 📒 구현 사항
+
+1. [도서검색 사이트] 구현
+   - [x] [리스트], [상세] 2개의 화면 구현
+   - [x] [리스트] 화면에서 결과값 중 하나를 선택하면 세부정보를 보여주는 [상세] 화면 표시
+         
+
+<br/>
+
+2. [리스트]특정 키워드에 대해 검색된 서적 정보표시. 
+  - [x] JSON으로 받은 데이터 중 title, subtitle, image, url 프로퍼티를 필수로 화면에 표시. 
+  - [x] 무한 스크롤 구현
+  - [x] 특정 키워드를 입력받을 수 있도록 함 키워드는 최대 2개이고 ‘or’ 와 ‘not’ operator로
+   구분 
+    - ‘or(|)’ operator는 각각의 키워드로 검색한 결과를 합쳐서 표시. (e.g. ‘tdd|javascript’ : tdd로 검색한 결과와 jvascript으로 검색한 결과를 합쳐서 표시) 
+    - ‘not(-)’ operator는 앞의 키워드가 제목에 포함된 서적을 검색하되 뒤의 키워드가 포함되지
+   않은 서적들 표시. (e.g. ‘tdd-javascript’ : tdd가 제목에 포함된 서적을 검색하되
+   javascript라는 키워드를 가지고 있는 서적은 제외)
+
+<br/>
+
+3. [상세]: 서적 리스트 중 선택된 서적의 상세 정보를 표시
+   - [x] JSON으로 받은 데이터 중 특정 프로퍼티 필수로 화면에 표시
+
+<br/>
+
+#### 📒 Point
+
+- TDD로 작업을 진행했습니다.
+- UI 컴포넌트 작업 시 Storybook을 사용해 UI를 담당하는 독립적인 컴포넌트를 설계하고, 컴포넌트 내용을 문서화했습니다.
+
+<img width="317" alt="스크린샷 2023-12-12 오전 1 27 12" src="https://github.com/Gayun00/widget/assets/67543454/5a8f033a-4663-4991-8852-e28850834184">
+
+- 도서 상세페이지의 경우, SEO 최적화와 초기 로딩 속도를 고려하여 SSR을 적용했습니다.
+- 간결한 테스트 코드 작성을 위한 TestUtils 함수를 정의해 사용했습니다.
+- useInfiniteQuery와 useIntersectionObserver 커스텀 훅을 사용해 무한 스크롤 기능을 구현했습니다.
+- 검색어 입력 시 검색어가 없는 경우, 최대 키워드 갯수가 2개를 초과하는 경우에 대한 유효성 검사를 구현했습니다.
+
+
+
+<br/>
+
+#### 🧪 Test
+
+- Jest를 사용해 유닛 테스트 코드를 작성해 필요한 로직을 검증했습니다.
+
+<br/>
+
+#### 📒 CI/CD
+
+- unit test pre-commit
+  - husky pre-commit을 사용해 작성한 유닛 테스트 코드로 리팩토링 및 추가 작업에 대한 안정성을 확보할 수 있도록 했습니다.
+- storybook 자동 빌드/배포
+  - 협업 프로세스를 고려해 PR 리뷰 단계에서 직관적으로 UI 리뷰를 진행할 수 있도록 설정했습니다.
+- Vercel 자동 배포 적용
+  - git flow 브랜치 전략을 사용해 작업을 진행했으며, 코드 푸시 및 main 브랜치 머지 시마다 자동 배포되도록 설정했습니다.
+  - storybook과 프로덕트 배포 성공 여부를 PR에서 미리 체크하고, 승인 및 머지할 수 있도록 설정했습니다.
+
+<br/>
+
+#### 📒 Task
+
+- github issue 생성을 통해 task를 관리하고, 관련 PR에 연결해 쉽게 찾아보고 히스토리를 관리할 수 있도록 했습니다. [(바로가기)](https://github.com/Gayun00/search-books/issues?q=is%3Aissue+is%3Aclosed)
