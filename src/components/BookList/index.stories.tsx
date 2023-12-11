@@ -19,18 +19,21 @@ const bookList = [
     subtitle: "Covers MongoDB version 3.0",
     image: "https://itbook.store/img/books/9781617291609.png",
     url: "https://itbook.store/books/9781617291609",
+    isbn13: "https://itbook.store/books/9781617291609",
   },
   {
     title: "MongoDB in Action, 2nd Edition",
     subtitle: "Covers MongoDB version 3.0",
     image: "https://itbook.store/img/books/9781617291609.png",
     url: "https://itbook.store/books/9781617291609",
+    isbn13: "https://itbook.store/books/9781617291609",
   },
   {
     title: "MongoDB in Action, 2nd Edition",
     subtitle: "Covers MongoDB version 3.0",
     image: "https://itbook.store/img/books/9781617291609.png",
     url: "https://itbook.store/books/9781617291609",
+    isbn13: "https://itbook.store/books/9781617291609",
   },
 ];
 
@@ -38,6 +41,7 @@ const Template = () => (
   <BookList title="도서 목록">
     {bookList.map((book) => (
       <Book
+        isbn13={book.isbn13}
         key={book.url}
         title={book.title}
         subtitle={book.subtitle}
