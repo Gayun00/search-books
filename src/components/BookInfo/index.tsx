@@ -29,6 +29,7 @@ function BookInfo({
   rating,
   authors,
   pages,
+  price,
   image,
   publisher,
   isbn13,
@@ -49,6 +50,7 @@ function BookInfo({
           height={400}
           alt={`${title}_img`}
         />
+        <CardWrapper title="Price" data={price} />
         <CardWrapper title="Rating" data={rating} />
         <CardWrapper title="Publisher" data={publisher} />
         <CardWrapper title="Isbn13" data={isbn13} />
