@@ -5,20 +5,25 @@ import { customRender } from "@/utils/testUtils";
 
 jest.mock("@/api", () => ({
   searchBooks: jest.fn().mockImplementation(({ keyword }) => {
-    return Promise.resolve([
-      {
-        title: `Book for ${keyword} 1`,
-        subtitle: `Subtitle for ${keyword} 1`,
-        url: `url for ${keyword} 1`,
-        image: `https://books/${keyword}/1`,
-      },
-      {
-        title: `Book for ${keyword} 2`,
-        subtitle: `Subtitle for ${keyword} 2`,
-        url: `url for ${keyword} 2`,
-        image: `https://books/${keyword}/2`,
-      },
-    ]);
+    return Promise.resolve({
+      total: "700",
+      page: "1",
+      error: "0",
+      books: [
+        {
+          title: `Book for ${keyword} 1`,
+          subtitle: `Subtitle for ${keyword} 1`,
+          url: `url for ${keyword} 1`,
+          image: `https://books/${keyword}/1`,
+        },
+        {
+          title: `Book for ${keyword} 2`,
+          subtitle: `Subtitle for ${keyword} 2`,
+          url: `url for ${keyword} 2`,
+          image: `https://books/${keyword}/2`,
+        },
+      ],
+    });
   }),
 }));
 
