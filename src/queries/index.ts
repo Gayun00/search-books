@@ -1,5 +1,6 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getBook, searchBooks } from "@/api";
+import { SearchBookResponse } from "@/types";
 import { splitKeywords } from "@/utils/handleKeywords";
 import { bookQueryKeys, searchBookQueryKeys } from "./queryKeys";
 
@@ -13,8 +14,9 @@ const handleResultsWithOrOp = (keywords: string, pageParam: number) => {
     const mergedResults = results.flatMap((result) => result.books);
     return {
       books: mergedResults,
-      page: pageParam,
+      page: pageParam.toString(),
       total: results[pageParam].total,
+      error: "0",
     };
   });
 };
@@ -30,8 +32,9 @@ const handleResultsWithNotOp = async (keywords: string, pageParam: number) => {
   });
   return {
     books: filteredBooks,
-    page: pageParam,
+    page: pageParam.toString(),
     total: searchedBooks.total,
+    error: "0",
   };
 };
 
@@ -43,17 +46,20 @@ export const useSearchBooksQuery = ({ keywords }: { keywords: string }) => {
       const hasNotOperator = keywords.includes("-");
 
       if (hasOrOperator) {
-        return handleResultsWithOrOp(keywords, pageParam);
+        return await handleResultsWithOrOp(keywords, pageParam);
       }
 
       if (hasNotOperator) {
-        return handleResultsWithNotOp(keywords, pageParam);
+        return await handleResultsWithNotOp(keywords, pageParam);
       }
 
-      return searchBooks({ keyword: keywords, page: pageParam });
+      return await searchBooks({
+        keyword: keywords,
+        page: pageParam,
+      });
     },
-    getNextPageParam: (lastPage: any) => {
-      const nextPage = lastPage.page + 1;
+    getNextPageParam: (lastPage: SearchBookResponse) => {
+      const nextPage = parseInt(lastPage.page) + 1;
       const totalItems = parseInt(lastPage.total);
       if (nextPage * 10 <= totalItems) {
         return nextPage;
