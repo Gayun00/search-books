@@ -1,17 +1,20 @@
 "use client";
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { BookData } from "@/types";
 import { useSearchBooksQuery } from "@/queries";
+import useQueryString from "@/hooks/useQueryString";
 import Book from "@/components/Book";
 import NoDataFallback from "@/components/fallbacks/NoDataFallback";
 import BookList from "@/components/BookList";
 import SearchInput from "@/components/SearchInput";
 import InfiniteScrollTrigger from "@/components/InfinitScrollTrigger";
+import { SEARCH_PARAMS_KEY } from "@/constants";
 
 function SearchBooks() {
-  const [keywords, setKeywords] = useState("");
+  const { getSearchParams, updateSearchParams } = useQueryString();
 
+  const keywords = getSearchParams(SEARCH_PARAMS_KEY.KEYWORDS);
   const { data, fetchNextPage, isLoading, hasNextPage, isFetchingNextPage } =
     useSearchBooksQuery({ keywords });
 
@@ -19,7 +22,7 @@ function SearchBooks() {
   const hasSearchResults = !!(!isLoading && keywords.length);
 
   const handleSubmit = (text: string) => {
-    setKeywords(text);
+    updateSearchParams(SEARCH_PARAMS_KEY.KEYWORDS, text);
   };
 
   return (
