@@ -1,13 +1,12 @@
 "use client";
 
 import React from "react";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import getQueryClient from "@/utils/getQueryClient";
 
 function Providers({ children }: React.PropsWithChildren) {
-  const [client] = React.useState(
-    new QueryClient({ defaultOptions: { queries: { staleTime: 5000 } } })
-  );
+  const client = getQueryClient();
 
   return (
     <QueryClientProvider client={client}>
