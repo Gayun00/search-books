@@ -1,14 +1,13 @@
 "use client";
 
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { BookData } from "@/types";
 import { useSearchBooksQuery } from "@/queries";
-import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import Book from "@/components/Book";
 import NoDataFallback from "@/components/fallbacks/NoDataFallback";
 import BookList from "@/components/BookList";
 import SearchInput from "@/components/SearchInput";
-import Spinner from "@/components/fallbacks/Spinner";
+import InfiniteScrollTrigger from "@/components/InfinitScrollTrigger";
 
 function SearchBooks() {
   const [keywords, setKeywords] = useState("");
@@ -19,23 +18,14 @@ function SearchBooks() {
   const hasNoSearchResults = !data?.pages[0].books.length;
   const hasSearchResults = !!(!isLoading && keywords.length);
 
-  const { targetRef } = useIntersectionObserver({
-    onIntersect: fetchNextPage,
-  });
-
   const handleSubmit = (text: string) => {
     setKeywords(text);
   };
-
-  useEffect(() => {
-    fetchNextPage();
-  }, [keywords, fetchNextPage]);
 
   return (
     <div className="flex min-h-screen flex-col items-center p-24 lg:min-w-[1000px]">
       <SearchInput onSubmit={handleSubmit} />
       <div className="w-full py-12 min-w-[500px]">
-        {isLoading && <Spinner />}
         {hasSearchResults && (
           <>
             <BookList title="검색 결과">
@@ -55,17 +45,18 @@ function SearchBooks() {
               ))}
             </BookList>
 
+            <InfiniteScrollTrigger
+              fetchNextPage={fetchNextPage}
+              hasNextPage={hasNextPage}
+              isFetchingNextPage={isFetchingNextPage}
+            />
+
             {hasNoSearchResults && (
               <NoDataFallback text="검색 결과가 없습니다" />
             )}
           </>
         )}
       </div>
-
-      {isFetchingNextPage && <Spinner />}
-      {hasNextPage && !isFetchingNextPage && (
-        <div ref={targetRef} className="h-200px bg-slate-500"></div>
-      )}
     </div>
   );
 }
